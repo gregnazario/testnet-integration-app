@@ -4,10 +4,7 @@ version = "1.0.0"
 authors = []
 
 [addresses]
-test_faucet_addr = "_"
-
-[dev-addresses]
-test_faucet_addr = "0xface"
+test_faucet_addr = "0xc41a43fe91e24dfb73a94d6a5cc9d388037819db72c651437c9615a64aa4dcb2"
 
 [dependencies.AptosFramework]
 git = "https://github.com/aptos-labs/aptos-framework.git"
