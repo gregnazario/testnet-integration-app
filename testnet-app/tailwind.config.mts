@@ -1,7 +1,11 @@
-const plugin = require("tailwindcss/plugin");
+// @ts-expect-error - This is a CJS import
+import plugin from "tailwindcss/plugin";
+import { Config as TailWindConfig } from "tailwindcss";
+import * as tailwindAnimatePlugin from "tailwindcss-animate";
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+/** @type {import("tailwindcss").Config} */
+//module.exports = {
+export const tailwindConfig: TailWindConfig = {
   darkMode: ["class"],
   content: ["./frontend/**/*.{ts,tsx}"],
   prefix: "",
@@ -107,8 +111,7 @@ module.exports = {
     },
   },
   plugins: [
-    require("tailwindcss-animate"),
-
+    tailwindAnimatePlugin,
     plugin(function addTextStyles({ addComponents, theme }) {
       addComponents({
         // Component Regular Text Styles
@@ -182,3 +185,5 @@ module.exports = {
     }),
   ],
 };
+
+module.exports = tailwindConfig;
