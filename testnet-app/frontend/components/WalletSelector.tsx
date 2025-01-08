@@ -1,4 +1,3 @@
-import { React } from "React";
 import {
   APTOS_CONNECT_ACCOUNT_URL,
   AboutAptosConnect,

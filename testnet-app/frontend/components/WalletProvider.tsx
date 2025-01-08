@@ -1,4 +1,3 @@
-import { React } from "React";
 import { PropsWithChildren } from "react";
 import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
 // Internal components

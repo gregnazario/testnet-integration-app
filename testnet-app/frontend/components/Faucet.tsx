@@ -1,4 +1,3 @@
-import {React} from "React";
 import {useEffect, useState} from "react";
 import {useWallet} from "@aptos-labs/wallet-adapter-react";
 import {useQuery, useQueryClient} from "@tanstack/react-query";
@@ -8,8 +7,6 @@ import {aptosClient} from "@/utils/aptosClient";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {getCoinBalance, getFaBalance} from "@/view-functions/getAccountBalance";
-import {DropdownMenu} from "@/components/ui/dropdown-menu.tsx";
-import {DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@radix-ui/react-dropdown-menu";
 
 export function Faucet() {
     const {account, signAndSubmitTransaction} = useWallet();

@@ -1,4 +1,3 @@
-import { React } from "React";
 import { Fragment, ReactNode } from "react";
 
 export interface LabelValueGridProps {

@@ -11,7 +11,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "deploy": "vercel",
-    "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint ./**/*.ts* --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "_fmt": "prettier 'frontend/**/*.ts'",
     "fmt": "npm run _fmt -- --write"

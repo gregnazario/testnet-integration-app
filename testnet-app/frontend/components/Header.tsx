@@ -1,4 +1,3 @@
-import { React } from "React";
 import { WalletSelector } from "./WalletSelector";
 
 export function Header() {

@@ -1,4 +1,3 @@
-import { React } from "React";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 // Internal components
 import { LabelValueGrid, DisplayValue } from "@/components/LabelValueGrid";
