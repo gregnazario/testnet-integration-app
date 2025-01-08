@@ -16,8 +16,8 @@ export default defineConfig({
       disable: false,
       registerType: "autoUpdate",
       manifest: {
-        name: "Aptos Fullstack Template",
-        short_name: "Aptos Template",
+        name: "Aptos Testnet Faucet",
+        short_name: "Aptos Testnet Faucet",
         icons: [
           {
             src: "/icons/icon-192x192.png",
