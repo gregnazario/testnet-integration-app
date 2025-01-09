@@ -26,7 +26,6 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import { RimoWallet } from "rimosafe-plugin-wallet-adapter";
 import { MartianWallet } from "@martianwallet/aptos-wallet-adapter";
-import { BloctoWallet } from "@blocto/aptos-wallet-adapter-plugin";
 import { BitgetWallet } from "@bitget-wallet/aptos-wallet-adapter";
 import { MSafeWalletAdapter } from "@msafe/aptos-wallet-adapter";
 import { RiseWallet } from "@rise-wallet/wallet-adapter";
