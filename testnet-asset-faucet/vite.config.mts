@@ -15,6 +15,9 @@ export default defineConfig({
     VitePWA({
       disable: false,
       registerType: "autoUpdate",
+      workbox: {
+        maximumFileSizeToCacheInBytes: 6 * 1024 * 1024 // 6 MB
+      },
       manifest: {
         name: "Aptos Testnet Faucet",
         short_name: "Aptos Testnet Faucet",
