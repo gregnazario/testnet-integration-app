@@ -1,0 +1,17 @@
+[package]
+name = "TokenFactory"
+version = "1.0.0"
+authors = []
+
+[addresses]
+token_factory_address = "_"
+
+[dev-addresses]
+token_factory_address = "0x12312512"
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-framework.git"
+rev = "mainnet"
+subdir = "aptos-framework"
+
+[dev-dependencies]
