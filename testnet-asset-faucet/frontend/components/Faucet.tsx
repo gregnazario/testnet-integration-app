@@ -173,79 +173,98 @@ export function Faucet() {
   switch (coinSymbol) {
     case CoinType.USDT:
       coinDetails = (
-        <>
-          <h4 className="text-lg font-medium">USDT Balance: {displayWithDecimals(balance.usdtBalance, 6)}</h4>
-          Recipient <Input disabled={!account} placeholder="0x1" onChange={(e) => setRecipient(e.target.value)} />
-          Amount (Max 10.000000){" "}
-          <Input disabled={!account} placeholder="10" onChange={(e) => setTransferAmount(parseFloat(e.target.value))} />
+        <div className="space-y-4">
+          <h4 className="text-lg font-medium text-card-foreground">USDT Balance: {displayWithDecimals(balance.usdtBalance, 6)}</h4>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground">Recipient</label>
+            <Input disabled={!account} placeholder="0x1" onChange={(e) => setRecipient(e.target.value)} />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground">Amount (Max 10.000000)</label>
+            <Input disabled={!account} placeholder="10" onChange={(e) => setTransferAmount(parseFloat(e.target.value))} />
+          </div>
           <Button disabled={!account || !recipient || !transferAmount || transferAmount <= 0} onClick={onClickButton}>
             Mint
           </Button>
-        </>
+        </div>
       );
       break;
     case CoinType.USDC:
       coinDetails = (
-        <>
-          <h4 className="text-lg font-medium">USDC Balance: {displayWithDecimals(balance.usdcBalance, 6)}</h4>
+        <div className="space-y-4">
+          <h4 className="text-lg font-medium text-card-foreground">USDC Balance: {displayWithDecimals(balance.usdcBalance, 6)}</h4>
           <Button onClick={() => window.open("https://faucet.circle.com/", "_blank")}>{"Visit USDC's faucet"}</Button>
-        </>
+        </div>
       );
       break;
     case CoinType.USDE:
       coinDetails = (
-        <>
-          <h4 className="text-lg font-medium">USDe Balance: {displayWithDecimals(balance.usdeBalance, 6)}</h4>
-          Recipient <Input disabled={!account} placeholder="0x1" onChange={(e) => setRecipient(e.target.value)} />
-          Amount (Max 10.000000){" "}
-          <Input disabled={!account} placeholder="10" onChange={(e) => setTransferAmount(parseFloat(e.target.value))} />
+        <div className="space-y-4">
+          <h4 className="text-lg font-medium text-card-foreground">USDe Balance: {displayWithDecimals(balance.usdeBalance, 6)}</h4>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground">Recipient</label>
+            <Input disabled={!account} placeholder="0x1" onChange={(e) => setRecipient(e.target.value)} />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground">Amount (Max 10.000000)</label>
+            <Input disabled={!account} placeholder="10" onChange={(e) => setTransferAmount(parseFloat(e.target.value))} />
+          </div>
           <Button disabled={!account || !recipient || !transferAmount || transferAmount <= 0} onClick={onClickButton}>
             Mint
           </Button>
-        </>
+        </div>
       );
       break;
     case CoinType.SUSDE:
       coinDetails = (
-        <>
-          <h4 className="text-lg font-medium">sUSDe Balance: {displayWithDecimals(balance.susdeBalance, 6)}</h4>
-          Recipient <Input disabled={!account} placeholder="0x1" onChange={(e) => setRecipient(e.target.value)} />
-          Amount (Max 10.000000){" "}
-          <Input disabled={!account} placeholder="10" onChange={(e) => setTransferAmount(parseFloat(e.target.value))} />
+        <div className="space-y-4">
+          <h4 className="text-lg font-medium text-card-foreground">sUSDe Balance: {displayWithDecimals(balance.susdeBalance, 6)}</h4>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground">Recipient</label>
+            <Input disabled={!account} placeholder="0x1" onChange={(e) => setRecipient(e.target.value)} />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground">Amount (Max 10.000000)</label>
+            <Input disabled={!account} placeholder="10" onChange={(e) => setTransferAmount(parseFloat(e.target.value))} />
+          </div>
           <Button disabled={!account || !recipient || !transferAmount || transferAmount <= 0} onClick={onClickButton}>
             Mint
           </Button>
-        </>
+        </div>
       );
       break;
     case CoinType.APT:
       coinDetails = (
-        <>
-          <h4 className="text-lg font-medium">APT Balance: {displayWithDecimals(balance.aptBalance, 8)}</h4>
+        <div className="space-y-4">
+          <h4 className="text-lg font-medium text-card-foreground">APT Balance: {displayWithDecimals(balance.aptBalance, 8)}</h4>
           <Button onClick={() => window.open("https://aptos.dev/en/network/faucet", "_blank")}>
             {"Visit the APT testnet faucet"}
           </Button>
-        </>
+        </div>
       );
       break;
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      Choose an asset
-      <select
-        value={coinSymbol}
-        defaultValue={coinSymbol}
-        onChange={(e) => setCoinSymbol(e.target.value)}
-        className="border border-gray-300 rounded-md"
-      >
-        <option value={CoinType.USDT}>USDt</option>
-        <option value={CoinType.USDC}>USDC</option>
-        <option value={CoinType.USDE}>USDe</option>
-        <option value={CoinType.SUSDE}>sUSDe</option>
-        <option value={CoinType.APT}>APT</option>
-      </select>
-      {coinDetails}
+    <div className="flex flex-col gap-6 p-6 bg-card border border-border rounded-lg shadow-sm">
+      <div className="space-y-2">
+        <label className="text-sm font-medium text-foreground">Choose an asset</label>
+        <select
+          value={coinSymbol}
+          defaultValue={coinSymbol}
+          onChange={(e) => setCoinSymbol(e.target.value)}
+          className="w-full px-3 py-2 bg-background border border-border rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+        >
+          <option value={CoinType.USDT}>USDt</option>
+          <option value={CoinType.USDC}>USDC</option>
+          <option value={CoinType.USDE}>USDe</option>
+          <option value={CoinType.SUSDE}>sUSDe</option>
+          <option value={CoinType.APT}>APT</option>
+        </select>
+      </div>
+      <div className="space-y-4">
+        {coinDetails}
+      </div>
     </div>
   );
 }
