@@ -223,7 +223,7 @@ export function Faucet() {
         <>
           <h4 className="text-lg font-medium">APT Balance: {displayWithDecimals(balance.aptBalance, 8)}</h4>
           <Button onClick={() => window.open("https://aptos.dev/en/network/faucet", "_blank")}>
-            {"Visit APT's faucet"}
+            {"Visit the APT testnet faucet"}
           </Button>
         </>
       );
