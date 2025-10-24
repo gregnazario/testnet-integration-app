@@ -17,7 +17,17 @@ export function WalletProvider({ children }: PropsWithChildren) {
           [NETWORK]: APTOS_API_KEY,
         },
       }}
-      optInWallets={["Continue with Google", "Petra", "Nightly", "Pontem Wallet", "Mizu Wallet"]}
+      optInWallets={[
+        "Continue with Google",
+        "Continue with Apple",
+        "Petra",
+        "Backpack",
+        "Nightly",
+        "OKX Wallet",
+        "Bitget Wallet",
+        "Gate Wallet",
+        "Pontem Wallet",
+      ]}
       onError={(error) => {
         toast({
           variant: "destructive",
