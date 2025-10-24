@@ -8,7 +8,7 @@ function App() {
   const { connected } = useWallet();
 
   return (
-    <>
+    <div className="min-h-screen bg-white">
       <Header />
       <div className="flex items-center justify-center flex-col">
         {connected ? (
@@ -19,11 +19,11 @@ function App() {
           </Card>
         ) : (
           <CardHeader>
-            <CardTitle>To get started Connect a wallet</CardTitle>
+            <CardTitle className="text-gray-900">To get started Connect a wallet</CardTitle>
           </CardHeader>
         )}
       </div>
-    </>
+    </div>
   );
 }
 
