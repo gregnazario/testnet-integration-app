@@ -21,14 +21,7 @@ function TokenLogo({ token, size = 24 }: { token: CoinType; size?: number }) {
   const logoFile = logoFiles[token as keyof typeof logoFiles];
 
   if (logoFile) {
-    return (
-      <img
-        src={logoFile}
-        alt={token}
-        className="rounded-full"
-        style={{ width: size, height: size }}
-      />
-    );
+    return <img src={logoFile} alt={token} className="rounded-full" style={{ width: size, height: size }} />;
   }
 
   // Fallback for any unmapped tokens
@@ -38,6 +31,76 @@ function TokenLogo({ token, size = 24 }: { token: CoinType; size?: number }) {
       style={{ width: size, height: size }}
     >
       {token.charAt(0)}
+    </div>
+  );
+}
+
+// Custom Dropdown Component with Logos
+function TokenDropdown({ value, onChange }: { value: string; onChange: (value: string) => void }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const tokens = [
+    { value: CoinType.USDT, label: "USDt" },
+    { value: CoinType.USDC, label: "USDC" },
+    { value: CoinType.USDE, label: "USDe" },
+    { value: CoinType.SUSDE, label: "sUSDe" },
+    { value: CoinType.APT, label: "APT" },
+  ];
+
+  const selectedToken = tokens.find((token) => token.value === value);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (!target.closest("[data-dropdown]")) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("click", handleClickOutside);
+      return () => document.removeEventListener("click", handleClickOutside);
+    }
+  }, [isOpen]);
+
+  return (
+    <div className="relative" data-dropdown>
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center gap-3 px-3 py-2 bg-background border border-border rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+      >
+        <TokenLogo token={value as CoinType} size={20} />
+        <span className="flex-1 text-left">{selectedToken?.label}</span>
+        <svg className="w-4 h-4 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d={isOpen ? "M19 9l-7 7-7-7" : "M19 9l-7 7-7-7"}
+          />
+        </svg>
+      </button>
+
+      {isOpen && (
+        <div className="absolute top-full left-0 right-0 mt-1 bg-background border border-border rounded-md shadow-lg z-50">
+          {tokens.map((token) => (
+            <button
+              key={token.value}
+              type="button"
+              onClick={() => {
+                onChange(token.value);
+                setIsOpen(false);
+              }}
+              className="w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-accent hover:text-accent-foreground focus:outline-none focus:bg-accent focus:text-accent-foreground"
+            >
+              <TokenLogo token={token.value as CoinType} size={20} />
+              <span>{token.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -210,7 +273,9 @@ export function Faucet() {
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <TokenLogo token={CoinType.USDT} size={24} />
-            <h4 className="text-lg font-medium text-card-foreground">USDT Balance: {displayWithDecimals(balance.usdtBalance, 6)}</h4>
+            <h4 className="text-lg font-medium text-card-foreground">
+              USDT Balance: {displayWithDecimals(balance.usdtBalance, 6)}
+            </h4>
           </div>
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">Recipient</label>
@@ -218,7 +283,11 @@ export function Faucet() {
           </div>
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">Amount (Max 10.000000)</label>
-            <Input disabled={!account} placeholder="10" onChange={(e) => setTransferAmount(parseFloat(e.target.value))} />
+            <Input
+              disabled={!account}
+              placeholder="10"
+              onChange={(e) => setTransferAmount(parseFloat(e.target.value))}
+            />
           </div>
           <Button disabled={!account || !recipient || !transferAmount || transferAmount <= 0} onClick={onClickButton}>
             Mint
@@ -231,7 +300,9 @@ export function Faucet() {
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <TokenLogo token={CoinType.USDC} size={24} />
-            <h4 className="text-lg font-medium text-card-foreground">USDC Balance: {displayWithDecimals(balance.usdcBalance, 6)}</h4>
+            <h4 className="text-lg font-medium text-card-foreground">
+              USDC Balance: {displayWithDecimals(balance.usdcBalance, 6)}
+            </h4>
           </div>
           <Button onClick={() => window.open("https://faucet.circle.com/", "_blank")}>{"Visit USDC's faucet"}</Button>
         </div>
@@ -242,7 +313,9 @@ export function Faucet() {
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <TokenLogo token={CoinType.USDE} size={24} />
-            <h4 className="text-lg font-medium text-card-foreground">USDe Balance: {displayWithDecimals(balance.usdeBalance, 6)}</h4>
+            <h4 className="text-lg font-medium text-card-foreground">
+              USDe Balance: {displayWithDecimals(balance.usdeBalance, 6)}
+            </h4>
           </div>
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">Recipient</label>
@@ -250,7 +323,11 @@ export function Faucet() {
           </div>
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">Amount (Max 10.000000)</label>
-            <Input disabled={!account} placeholder="10" onChange={(e) => setTransferAmount(parseFloat(e.target.value))} />
+            <Input
+              disabled={!account}
+              placeholder="10"
+              onChange={(e) => setTransferAmount(parseFloat(e.target.value))}
+            />
           </div>
           <Button disabled={!account || !recipient || !transferAmount || transferAmount <= 0} onClick={onClickButton}>
             Mint
@@ -263,7 +340,9 @@ export function Faucet() {
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <TokenLogo token={CoinType.SUSDE} size={24} />
-            <h4 className="text-lg font-medium text-card-foreground">sUSDe Balance: {displayWithDecimals(balance.susdeBalance, 6)}</h4>
+            <h4 className="text-lg font-medium text-card-foreground">
+              sUSDe Balance: {displayWithDecimals(balance.susdeBalance, 6)}
+            </h4>
           </div>
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">Recipient</label>
@@ -271,7 +350,11 @@ export function Faucet() {
           </div>
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">Amount (Max 10.000000)</label>
-            <Input disabled={!account} placeholder="10" onChange={(e) => setTransferAmount(parseFloat(e.target.value))} />
+            <Input
+              disabled={!account}
+              placeholder="10"
+              onChange={(e) => setTransferAmount(parseFloat(e.target.value))}
+            />
           </div>
           <Button disabled={!account || !recipient || !transferAmount || transferAmount <= 0} onClick={onClickButton}>
             Mint
@@ -284,7 +367,9 @@ export function Faucet() {
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <TokenLogo token={CoinType.APT} size={24} />
-            <h4 className="text-lg font-medium text-card-foreground">APT Balance: {displayWithDecimals(balance.aptBalance, 8)}</h4>
+            <h4 className="text-lg font-medium text-card-foreground">
+              APT Balance: {displayWithDecimals(balance.aptBalance, 8)}
+            </h4>
           </div>
           <Button onClick={() => window.open("https://aptos.dev/en/network/faucet", "_blank")}>
             {"Visit the APT testnet faucet"}
@@ -298,32 +383,9 @@ export function Faucet() {
     <div className="flex flex-col gap-6 p-6 bg-card border border-border rounded-lg shadow-sm">
       <div className="space-y-2">
         <label className="text-sm font-medium text-foreground">Choose an asset</label>
-        <div className="relative">
-          <select
-            value={coinSymbol}
-            defaultValue={coinSymbol}
-            onChange={(e) => setCoinSymbol(e.target.value)}
-            className="w-full pl-12 pr-10 py-2 bg-background border border-border rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent appearance-none"
-          >
-            <option value={CoinType.USDT}>USDt</option>
-            <option value={CoinType.USDC}>USDC</option>
-            <option value={CoinType.USDE}>USDe</option>
-            <option value={CoinType.SUSDE}>sUSDe</option>
-            <option value={CoinType.APT}>APT</option>
-          </select>
-          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
-            <TokenLogo token={coinSymbol as CoinType} size={20} />
-          </div>
-          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
-            <svg className="w-4 h-4 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </div>
-        </div>
+        <TokenDropdown value={coinSymbol} onChange={(value) => setCoinSymbol(value)} />
       </div>
-      <div className="space-y-4">
-        {coinDetails}
-      </div>
+      <div className="space-y-4">{coinDetails}</div>
     </div>
   );
 }
